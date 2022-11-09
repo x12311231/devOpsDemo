@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('拉取代码') {
             steps {
+                checkout([$class: 'GitSCM', branches: [[name: '${tag}']], extensions: [], userRemoteConfigs: [[credentialsId: '957944e5-1945-412b-8a6a-dbdefb41fdfa', url: 'http://web:8929/gitlab-instance-8982e4fb/test.git']]])
                 echo '拉取代码'
             }
         }
