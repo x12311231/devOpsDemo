@@ -8,6 +8,11 @@ pipeline {
                 echo '拉取代码'
             }
         }
+        stage('通过maven构建') {
+            steps {
+                sh '/var/jenkins_home/maven/bin/mvn clean package -DskipTests'
+            }
+        }
         stage('sonarqube') {
             steps {
                 echo '质量检测3.1'
