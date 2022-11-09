@@ -10,7 +10,7 @@ pipeline {
         }
         stage('sonarqube') {
             steps {
-                echo '质量检测1'
+                echo '质量检测3'
             }
         }
         stage('build') {
