@@ -15,6 +15,7 @@ pipeline {
         }
         stage('sonarqube') {
             steps {
+                sh '/var/jenkins_home/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -Dsonar.source=./ -Dsonar.projectname=${JOB_NAME} -Dsonar.projectKey=${JOB_NAME} -Dsonar.java.binaries=./target -Dsonar.login=308a4c8249eee4959f8dbecea1bab723e0beaaa0'
                 echo '质量检测3.1'
             }
         }
