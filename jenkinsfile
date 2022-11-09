@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('拉取代码') {
+            steps {
+                echo '拉取代码'
+            }
+        }
+        stage('sonarqube') {
+            steps {
+                echo '质量检测'
+            }
+        }
+        stage('build') {
+            steps {
+                echo 'build project'
+            }
+        }
+        stage('push') {
+            steps {
+                echo 'push project to repo'
+            }
+        }
+        stage('notice') {
+            steps {
+                echo 'notice target'
+            }
+        }
+    }
+}
