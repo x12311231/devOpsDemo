@@ -36,4 +36,22 @@ docker rm javatest && \\
 docker run --name javatest -p 8881:8881 -d 192.168.0.9:90/test/tttt:${tag} ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])            }
         }
     }
+    post {
+        success {
+            dingtalk (
+                robot: 'dingding',
+                type: 'MARKDOWN',
+                title: "success: ${JOB_NAME}",
+                text: ["- 构建成功：${JOB_NAME} 版本：${tag} \n 时间：${currentBuild.durationString}"]
+            )
+        }
+        failure {
+            dingtalk (
+                robot: 'dingding',
+                type: 'MARKDOWN',
+                title: "success: ${JOB_NAME}",
+                text: ["- 构建失败：${JOB_NAME} 版本：${tag} \n 时间：${currentBuild.durationString}"]
+            )
+        }
+    }
 }
