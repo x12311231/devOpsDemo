@@ -21,7 +21,7 @@ pipeline {
         }
         stage('build') {
             steps {
-                echo 'build project'
+                sshPublisher(publishers: [sshPublisherDesc(configName: '192.168.0.19', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'docker pull 192.168.0.9:90/test/tttt', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
         stage('push') {
