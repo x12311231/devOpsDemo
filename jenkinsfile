@@ -24,16 +24,16 @@ pipeline {
                 sshPublisher(publishers: [sshPublisherDesc(configName: '192.168.0.19', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /tmp/jenkins_root/docker
 mv ../target/*.jar ./
 docker-compose build --no-cache
-docker tag tttt:v2.0.0 192.168.0.9:90/test/tttt:v2.0.0
+docker tag tttt:v2.0.0 192.168.0.9:90/test/tttt:${tag}
 docker login 192.168.0.9:90 -u admin -p Harbor12345
-docker push 192.168.0.9:90/test/tttt:v2.0.0''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'target/* docker/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])            }
+docker push 192.168.0.9:90/test/tttt:${tag}''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'target/* docker/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])            }
          }
         stage('deploy') {
             steps {
-sshPublisher(publishers: [sshPublisherDesc(configName: '192.168.0.9', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''docker pull 192.168.0.9:90/test/tttt:v2.0.0 && \\
+sshPublisher(publishers: [sshPublisherDesc(configName: '192.168.0.9', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''docker pull 192.168.0.9:90/test/tttt:${tag} && \\
 docker stop javatest && \\
 docker rm javatest && \\
-docker run --name javatest -p 8881:8881 -d 192.168.0.9:90/test/tttt:v2.0.0 ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])            }
+docker run --name javatest -p 8881:8881 -d 192.168.0.9:90/test/tttt:${tag} ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])            }
         }
     }
 }
