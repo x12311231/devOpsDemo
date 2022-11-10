@@ -30,9 +30,10 @@ docker push 192.168.0.9:90/test/tttt:v2.0.0''', execTimeout: 120000, flatten: fa
          }
         stage('deploy') {
             steps {
-sshPublisher(publishers: [sshPublisherDesc(configName: '192.168.0.19', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''docker-compose build --no-cache
-docker tag tttt:v2.0.0 192.168.0.9:90/test/tttt:v2.0.0
-docker push 192.168.0.9:90/test/tttt:v2.0.0''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/tmp/jenkins_root', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'target/* docker/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])            }
+sshPublisher(publishers: [sshPublisherDesc(configName: '192.168.0.9', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''docker pull 192.168.0.9:90/test/tttt:v2.0.0 && \\
+docker stop javatest && \\
+docker rm javatest && \\
+docker run --name javatest -P 8881:8881 -d 192.168.0.9:90/test/tttt:v2.0.0 ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])            }
         }
     }
 }
