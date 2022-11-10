@@ -33,7 +33,7 @@ docker push 192.168.0.9:90/test/tttt:v2.0.0''', execTimeout: 120000, flatten: fa
 sshPublisher(publishers: [sshPublisherDesc(configName: '192.168.0.9', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''docker pull 192.168.0.9:90/test/tttt:v2.0.0 && \\
 docker stop javatest && \\
 docker rm javatest && \\
-docker run --name javatest -P 8881:8881 -d 192.168.0.9:90/test/tttt:v2.0.0 ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])            }
+docker run --name javatest -p 8881:8881 -d 192.168.0.9:90/test/tttt:v2.0.0 ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])            }
         }
     }
 }
