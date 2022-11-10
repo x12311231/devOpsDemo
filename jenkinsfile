@@ -25,8 +25,8 @@ pipeline {
 mv ../target/*.jar ./
 docker-compose build --no-cache
 docker tag tttt:v2.0.0 192.168.0.9:90/test/tttt:v2.0.0
-docker push 192.168.0.9:90/test/tttt:v2.0.0''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'target/* docker/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-            }
+docker login 192.168.0.9:90 -u admin -p Harbor12345
+docker push 192.168.0.9:90/test/tttt:v2.0.0''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'target/* docker/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])            }
          }
         stage('deploy') {
             steps {
