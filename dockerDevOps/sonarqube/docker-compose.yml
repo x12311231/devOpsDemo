@@ -1,0 +1,33 @@
+version: "3.1"
+
+services:
+  db:
+    image: postgres
+    networks:
+      - sonarqube
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+    ports:
+      - '5432:5432'
+
+  sonarqube:
+    image: sonarqube:8.9.10-community
+    depends_on:
+      - db
+    ports:
+      - 9000:9000
+    networks:
+      - sonarqube
+      - devops
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+
+networks:
+  sonarqube:
+    driver: bridge
+  devops:
+    driver: bridge
+    external: true
